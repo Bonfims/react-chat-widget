@@ -47,6 +47,8 @@ export default class App extends Component {
         imagePreview
         handleSubmit={this.handleSubmit}
         emojis
+        onFileInputClick={(e) => console.log("Opa o cara clicou aqui e " + e.target.value, e)}
+        onFileInputChange={(e) => console.log("Opa arquivo carregado ", e.target.files)}
       />
     );
   }

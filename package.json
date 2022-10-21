@@ -51,7 +51,6 @@
     "babel-jest": "^19.0.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-module-resolver": "^4.0.0",
-    "caniuse-lite": "^1.0.30001219",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.4",
     "enzyme": "^3.11.0",

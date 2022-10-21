@@ -23,7 +23,7 @@
   border-radius: 5px;
   padding: 10px 5px;
   resize: none;
-  width: calc(100% - 75px);
+  width: calc(100% - 100px);
 
   &:focus {
     outline: none;
@@ -38,11 +38,13 @@
   display: block;
   height: 100%;
   line-height: 20px;
-  max-height: 78px;
-  overflow-y: auto;
+  max-height: 56px;
+  max-width: 246px;
+  overflow-y: hidden;
   user-select: text;
   white-space: pre-wrap;
   word-wrap: break-word;
+  resize: none;
 
   &:focus-visible {
     outline: none;
@@ -54,13 +56,13 @@
   }
 }
 
-.rcw-send, .rcw-picker-btn {
+.rcw-send, .rcw-picker-btn, .rcw-attachment-btn {
   background: $grey-2;
   border: 0;
   cursor: pointer;
 
   .rcw-send-icon {
-    height: 25px;
+    height: 22px;
   }
 }
 
@@ -69,9 +71,24 @@
   cursor: not-allowed;
 }
 
+#attachment-input {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  overflow: hidden;
+  display: none;
+}
+
 @media screen and (max-width: 800px)  {
   .rcw-sender {
     border-radius: 0;
     flex-shrink: 0;
+  }
+  .rcw-input {
+    max-width: 100%;
   }
 }

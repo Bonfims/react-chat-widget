@@ -34,6 +34,8 @@ type Props = {
   handleSubmit?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
+  onFileInputClick?: (event: any) => void;
+  onFileInputChange?: (event: any) => void;
 } & typeof defaultProps;
 
 function ConnectedWidget({
@@ -63,7 +65,9 @@ function ConnectedWidget({
   handleSubmit,
   showBadge,
   resizable,
-  emojis
+  emojis,
+  onFileInputClick,
+  onFileInputChange
 }: Props) {
   return (
     <Provider store={store}>
@@ -95,6 +99,8 @@ function ConnectedWidget({
         showBadge={showBadge}
         resizable={resizable}
         emojis={emojis}
+        onFileInputClick={onFileInputClick}
+        onFileInputChange={onFileInputChange}
       />
     </Provider>
   );

@@ -38,7 +38,9 @@ type Props = {
   zoomStep?: number;
   showBadge?: boolean;
   resizable?: boolean;
-  emojis?: boolean
+  emojis?: boolean;
+  onFileInputClick?: (event: any) => void;
+  onFileInputChange?: (event: any) => void;
 }
 
 function WidgetLayout({
@@ -67,7 +69,9 @@ function WidgetLayout({
   zoomStep,
   showBadge,
   resizable,
-  emojis
+  emojis,
+  onFileInputClick,
+  onFileInputChange
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -147,6 +151,8 @@ function WidgetLayout({
           showTimeStamp={showTimeStamp}
           resizable={resizable}
           emojis={emojis}
+          onFileInputClick={onFileInputClick}
+          onFileInputChange={onFileInputChange}
         />
       }
       {customLauncher ?

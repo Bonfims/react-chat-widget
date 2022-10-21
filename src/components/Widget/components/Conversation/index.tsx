@@ -34,6 +34,8 @@ type Props = {
   showTimeStamp: boolean;
   resizable?: boolean;
   emojis?: boolean;
+  onFileInputClick?: (event: any) => void;
+  onFileInputChange?: (event: any) => void;
 };
 
 function Conversation({
@@ -54,7 +56,9 @@ function Conversation({
   sendButtonAlt,
   showTimeStamp,
   resizable,
-  emojis
+  emojis,
+  onFileInputClick,
+  onFileInputChange
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -134,6 +138,8 @@ function Conversation({
         buttonAlt={sendButtonAlt}
         onPressEmoji={togglePicker}
         onChangeSize={setOffset}
+        onFileInputClick={onFileInputClick}
+        onFileInputChange={onFileInputChange}
       />
     </div>
   );

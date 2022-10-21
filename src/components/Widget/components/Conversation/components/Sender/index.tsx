@@ -7,6 +7,7 @@ import { GlobalState } from 'src/store/types';
 import { getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret, getSelection } from '../../../../../../utils/contentEditable'
 const send = require('../../../../../../../assets/send_button.svg') as string;
 const emoji = require('../../../../../../../assets/icon-smiley.svg') as string;
+const attachment = require('../../../../../../../assets/icon-attachment.svg') as string;
 const brRegex = /<br>/g;
 
 import './style.scss';
@@ -20,9 +21,12 @@ type Props = {
   onPressEmoji: () => void;
   onChangeSize: (event: any) => void;
   onTextInputChange?: (event: any) => void;
+
+  onFileInputClick?: (event: any) => void;
+  onFileInputChange?: (event: any) => void;
 }
 
-function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize }: Props, ref) {
+function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onFileInputClick, onFileInputChange }: Props, ref) {
   const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
@@ -127,8 +131,12 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
   return (
     <div ref={refContainer} className="rcw-sender">
       <button className='rcw-picker-btn' type="submit" onClick={handlerPressEmoji}>
-        <img src={emoji} className="rcw-picker-icon" alt="" />
+        <img src={emoji} className="rcw-picker-icon" alt="emoji-picker" />
       </button>
+      <label className="rcw-attachment-btn" htmlFor="attachment-input">
+        <img src={attachment} className="rcw-attachment-icon" alt="attachment-input" aria-hidden="true"/>
+        <input type='file' id='attachment-input' onChange={onFileInputChange||((e) => console.log(e))} onClick={onFileInputClick||((e) => console.log(e))} />
+      </label>
       <div className={cn('rcw-new-message', {
           'rcw-message-disable': disabledInput,
         })
@@ -138,6 +146,7 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
           className="rcw-input"
           role="textbox"
           contentEditable={!disabledInput} 
+          aria-multiline="true"
           ref={inputRef}
           placeholder={placeholder}
           onInput={handlerOnChange}

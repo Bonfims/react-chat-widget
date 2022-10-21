@@ -34,6 +34,8 @@ type Props = {
   showBadge?: boolean;
   resizable?: boolean;
   emojis?: boolean;
+  onFileInputClick?: (event: any) => void;
+  onFileInputChange?: (event: any) => void;
 }
 
 function Widget({
@@ -63,7 +65,9 @@ function Widget({
   handleSubmit,
   showBadge,
   resizable,
-  emojis
+  emojis,
+  onFileInputClick,
+  onFileInputChange
 }: Props) {
   const dispatch = useDispatch();
 
@@ -115,6 +119,8 @@ function Widget({
       showBadge={showBadge}
       resizable={resizable}
       emojis={emojis}
+      onFileInputClick={onFileInputClick}
+      onFileInputChange={onFileInputChange}
     />
   );
 }
