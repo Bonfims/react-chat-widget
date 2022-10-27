@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import { Widget, addResponseMessage, setQuickButtons, toggleMsgLoader, addLinkSnippet } from '../index';
+import { Widget, addResponseMessage, setQuickButtons, toggleMsgLoader, addLinkSnippet, toggleInputVisibility, toggleInputDisabled } from '../index';
 import { addUserMessage } from '..';
 
 export default class App extends Component {
@@ -31,6 +31,8 @@ export default class App extends Component {
   handleSubmit = (msgText: string) => {
     if(msgText.length < 80) {
       addUserMessage("Uh oh, please write a bit more.");
+      toggleInputDisabled();
+      setTimeout(toggleInputDisabled,5000);
       return false;
     }
     return true;

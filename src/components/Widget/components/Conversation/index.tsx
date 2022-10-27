@@ -21,6 +21,7 @@ type Props = {
   senderPlaceHolder: string;
   showCloseButton: boolean;
   disabledInput: boolean;
+  vanishInput: boolean;
   autofocus: boolean;
   className: string;
   sendMessage: AnyFunction;
@@ -44,6 +45,7 @@ function Conversation({
   senderPlaceHolder,
   showCloseButton,
   disabledInput,
+  vanishInput,
   autofocus,
   className,
   sendMessage,
@@ -127,12 +129,36 @@ function Conversation({
       {emojis && pickerStatus && (<Picker 
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
         onSelect={onSelectEmoji}
+        enableFrequentEmojiSort={false}
+        theme="light"
+        exclude={["recent", "search", "custom"]}
+        i18n={{
+          search: 'Procurar',
+          clear: 'Limpar',
+          notfound: 'Nenhum emoji encontrado',
+          skintext: 'Escolha a cor',
+          categories: {
+            search: 'Resultados da busca',
+            recent: 'Usados',
+            smileys: 'Smileys',
+            people: 'Pessoas',
+            nature: 'Animais & Natureza',
+            foods: 'Comidas & Bebidas',
+            activity: 'Atividades',
+            places: 'Viagens & Lugares',
+            objects: 'Objetos',
+            symbols: 'Símbolos',
+            flags: 'Bandeiras'
+          },
+          categorieslabel: 'Categorias',
+        }}
       />)}
       <Sender
         ref={senderRef}
         sendMessage={handlerSendMsn}
         placeholder={senderPlaceHolder}
         disabledInput={disabledInput}
+        vanishInput={vanishInput}
         autofocus={autofocus}
         onTextInputChange={onTextInputChange}
         buttonAlt={sendButtonAlt}

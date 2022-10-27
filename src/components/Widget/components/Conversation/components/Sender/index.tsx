@@ -15,6 +15,7 @@ import './style.scss';
 type Props = {
   placeholder: string;
   disabledInput: boolean;
+  vanishInput: boolean;
   autofocus: boolean;
   sendMessage: (event: any) => void;
   buttonAlt: string;
@@ -26,7 +27,7 @@ type Props = {
   onFileInputChange?: (event: any) => void;
 }
 
-function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onFileInputClick, onFileInputChange }: Props, ref) {
+function Sender({ sendMessage, placeholder, disabledInput, vanishInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onFileInputClick, onFileInputChange }: Props, ref) {
   const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
@@ -48,6 +49,8 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
   }
 
   const handlerSendMessage = () => {
+    if(vanishInput || disabledInput)
+      return;
     const el = inputRef.current;
     if(el.innerHTML) {
       sendMessage(el.innerText);
@@ -124,28 +127,28 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
   }
 
   const handlerPressEmoji = () => {
+    if(vanishInput || disabledInput)
+      return;
     onPressEmoji();
     checkSize();
   }
 
   return (
-    <div ref={refContainer} className="rcw-sender">
-      <button className='rcw-picker-btn' type="submit" onClick={handlerPressEmoji}>
+    <div ref={refContainer} className={cn("rcw-sender", { 'rcw-vanish-input': vanishInput })}>
+      <button className={cn('rcw-picker-btn', { 'rcw-message-disable': vanishInput || disabledInput })} type="submit" onClick={handlerPressEmoji}>
         <img src={emoji} className="rcw-picker-icon" alt="emoji-picker" />
       </button>
       <label className="rcw-attachment-btn" htmlFor="attachment-input">
-        <img src={attachment} className="rcw-attachment-icon" alt="attachment-input" aria-hidden="true"/>
-        <input type='file' id='attachment-input' onChange={onFileInputChange||((e) => console.log(e))} onClick={onFileInputClick||((e) => console.log(e))} />
+        <img src={attachment} className={cn("rcw-attachment-icon", { 'rcw-message-disable': vanishInput || disabledInput })} alt="attachment-input" aria-hidden="true"/>
+        <input type='file' id='attachment-input' onChange={onFileInputChange||((e) => console.log(e))} onClick={onFileInputClick||((e) => console.log(e))} disabled={vanishInput || disabledInput}/>
       </label>
-      <div className={cn('rcw-new-message', {
-          'rcw-message-disable': disabledInput,
-        })
+      <div className={cn('rcw-new-message', { 'rcw-message-disable': vanishInput || disabledInput })
       }>
         <div
           spellCheck
           className="rcw-input"
           role="textbox"
-          contentEditable={!disabledInput} 
+          contentEditable={!(disabledInput||vanishInput)} 
           aria-multiline="true"
           ref={inputRef}
           placeholder={placeholder}
@@ -156,7 +159,7 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
         />
         
       </div>
-      <button type="submit" className="rcw-send" onClick={handlerSendMessage}>
+      <button type="submit" className={cn("rcw-send", { 'rcw-message-disable': vanishInput || disabledInput })} onClick={handlerSendMessage}>
         <img src={send} className="rcw-send-icon" alt={buttonAlt} />
       </button>
     </div>

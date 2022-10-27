@@ -83,6 +83,11 @@
   display: none;
 }
 
+.rcw-vanish-input {
+  opacity: 0;
+  z-index: -999;
+}
+
 @media screen and (max-width: 800px)  {
   .rcw-sender {
     border-radius: 0;

@@ -15,6 +15,12 @@ export function toggleInputDisabled(): actionsTypes.ToggleInputDisabled {
   };
 }
 
+export function toggleInputVisibility(): actionsTypes.ToggleInputVisibility {
+  return {
+    type: actionsTypes.TOGGLE_INPUT_VISIBILITY
+  };
+}
+
 export function addUserMessage(text: string, id?: string): actionsTypes.AddUserMessage {
   return {
     type: actionsTypes.ADD_NEW_USER_MESSAGE,

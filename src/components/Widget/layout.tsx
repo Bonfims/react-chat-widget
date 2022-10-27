@@ -74,9 +74,10 @@ function WidgetLayout({
   onFileInputChange
 }: Props) {
   const dispatch = useDispatch();
-  const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
+  const { vanisshInput, dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
     showChat: state.behavior.showChat,
     dissableInput: state.behavior.disabledInput,
+    vanisshInput: state.behavior.vanishInput,
     visible: state.preview.visible,
   }));
 
@@ -142,6 +143,7 @@ function WidgetLayout({
           toggleChat={onToggleConversation}
           showCloseButton={showCloseButton}
           disabledInput={dissableInput}
+          vanishInput={vanisshInput}
           autofocus={autofocus}
           titleAvatar={titleAvatar}
           className={showChat ? 'active' : 'hidden'}

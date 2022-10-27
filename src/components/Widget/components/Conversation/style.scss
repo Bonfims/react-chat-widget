@@ -45,6 +45,10 @@
   }
 }
 
+section.emoji-mart-search {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   .rcw-conversation-container {
     @include conversation-container-fs;

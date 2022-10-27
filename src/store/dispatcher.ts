@@ -32,6 +32,11 @@ export function toggleInputDisabled() {
   store.dispatch(actions.toggleInputDisabled());
 }
 
+export function toggleInputVisibility() {
+  store.dispatch(actions.toggleInputVisibility());
+}
+
+
 export function dropMessages() {
   store.dispatch(actions.dropMessages());
 }
