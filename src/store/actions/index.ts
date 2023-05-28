@@ -21,19 +21,21 @@ export function toggleInputVisibility(): actionsTypes.ToggleInputVisibility {
   };
 }
 
-export function addUserMessage(text: string, id?: string): actionsTypes.AddUserMessage {
+export function addUserMessage(text: string, id?: string, date?: Date): actionsTypes.AddUserMessage {
   return {
     type: actionsTypes.ADD_NEW_USER_MESSAGE,
     text,
-    id
+    id,
+    date
   };
 }
 
-export function addResponseMessage(text: string, id?: string): actionsTypes.AddResponseMessage {
+export function addResponseMessage(text: string, id?: string, date?: Date): actionsTypes.AddResponseMessage {
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
     text,
-    id
+    id,
+    date
   };
 }
 
@@ -43,11 +45,12 @@ export function toggleMsgLoader(): actionsTypes.ToggleMsgLoader {
   }
 }
 
-export function addLinkSnippet(link: LinkParams, id?: string): actionsTypes.AddLinkSnippet {
+export function addLinkSnippet(link: LinkParams, id?: string, date?: Date): actionsTypes.AddLinkSnippet {
   return {
     type: actionsTypes.ADD_NEW_LINK_SNIPPET,
     link,
-    id
+    id,
+    date
   };
 }
 
@@ -55,14 +58,16 @@ export function renderCustomComponent(
   component: ElementType,
   props: any,
   showAvatar: boolean,
-  id?: string
+  id?: string,
+  date?: Date
 ): actionsTypes.RenderCustomComponent {
   return {
     type: actionsTypes.ADD_COMPONENT_MESSAGE,
     component,
     props,
     showAvatar,
-    id
+    id,
+    date
   };
 }
 

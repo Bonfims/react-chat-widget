@@ -12,20 +12,21 @@ export function createNewMessage(
   text: string,
   sender: string,
   id?: string,
+  date?: Date
 ): MessageI {
   return {
     type: MESSAGES_TYPES.TEXT,
     component: Message,
     text,
     sender,
-    timestamp: new Date(),
+    timestamp: date || new Date(),
     showAvatar: true,
     customId: id,
     unread: sender === MESSAGE_SENDER.RESPONSE
   };
 }
 
-export function createLinkSnippet(link: LinkParams, id?: string) : Link {
+export function createLinkSnippet(link: LinkParams, id?: string, date?: Date) : Link {
   return {
     type: MESSAGES_TYPES.SNIPPET.LINK,
     component: Snippet,
@@ -33,20 +34,20 @@ export function createLinkSnippet(link: LinkParams, id?: string) : Link {
     link: link.link,
     target: link.target || '_blank',
     sender: MESSAGE_SENDER.RESPONSE,
-    timestamp: new Date(),
+    timestamp: date || new Date(),
     showAvatar: true,
     customId: id,
     unread: true
   };
 }
 
-export function createComponentMessage(component: ElementType, props: any, showAvatar: boolean, id?: string): CustomCompMessage {
+export function createComponentMessage(component: ElementType, props: any, showAvatar: boolean, id?: string, date?: Date): CustomCompMessage {
   return {
     type: MESSAGES_TYPES.CUSTOM_COMPONENT,
     component,
     props,
     sender: MESSAGE_SENDER.RESPONSE,
-    timestamp: new Date(),
+    timestamp: date || new Date(),
     showAvatar,
     customId: id,
     unread: true
