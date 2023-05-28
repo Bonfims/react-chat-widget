@@ -31,6 +31,8 @@ type Props = {
   imagePreview?: boolean;
   zoomStep?: number;
   emojis?: boolean;
+  emojiFetchData?: string;
+  emojiTheme?: string;
   handleSubmit?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
@@ -66,6 +68,8 @@ function ConnectedWidget({
   showBadge,
   resizable,
   emojis,
+  emojiFetchData,
+  emojiTheme,
   onFileInputClick,
   onFileInputChange
 }: Props) {
@@ -99,6 +103,8 @@ function ConnectedWidget({
         showBadge={showBadge}
         resizable={resizable}
         emojis={emojis}
+        emojiFetchData={emojiFetchData}
+        emojiTheme={emojiTheme}
         onFileInputClick={onFileInputClick}
         onFileInputChange={onFileInputChange}
       />
@@ -122,6 +128,9 @@ const defaultProps = {
   showTimeStamp: true,
   imagePreview: false,
   zoomStep: 80,
+  emojis: true,
+  fetchEmojiData: 'https://cdn.jsdelivr.net/npm/@emoji-mart/data',
+  emojiTheme: 'light',
   showBadge: true,
 };
 ConnectedWidget.defaultProps = defaultProps;

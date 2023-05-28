@@ -1,7 +1,7 @@
 @import 'common';
 @import 'variables/colors';
 @import 'animation';
-@import "~emoji-mart/css/emoji-mart.css";
+//@import "~emoji-mart/css/emoji-mart.css";
 
 .rcw-conversation-container {
   border-radius: 10px;
@@ -35,18 +35,17 @@
   width: 5px;
 }
 
-.emoji-mart-preview {
-  display: none;
-}
-
 .rcw-full-screen {
   .rcw-conversation-container {
     @include conversation-container-fs;
   }
 }
 
-section.emoji-mart-search {
-  display: none;
+em-emoji-picker {
+  --border-radius: 0px;
+  height: 51.5vh;
+  max-height: 420px;
+  width: 99.8%;
 }
 
 @media screen and (max-width: 800px) {

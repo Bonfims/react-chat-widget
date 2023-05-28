@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import { Widget, addResponseMessage, setQuickButtons, toggleMsgLoader, addLinkSnippet, toggleInputVisibility, toggleInputDisabled } from '../index';
+import { Widget, addResponseMessage, setQuickButtons, toggleMsgLoader, addLinkSnippet, toggleInputVisibility, toggleInputDisabled } from '../index.js';
 import { addUserMessage } from '..';
 
 
@@ -14,6 +14,7 @@ export default class App extends Component {
 
   handleNewUserMessage = (newMessage: any) => {
     toggleMsgLoader();
+    toggleInputDisabled ();
     setTimeout(() => {
       toggleMsgLoader();
       if (newMessage === 'fruits') {
@@ -25,6 +26,7 @@ export default class App extends Component {
   }
 
   handleQuickButtonClicked = (e: any) => {
+    toggleInputDisabled ();
     addResponseMessage('Selected ' + e);
     setQuickButtons([]);
   }
@@ -50,6 +52,8 @@ export default class App extends Component {
         emojis
         onFileInputClick={(e) => console.log("Opa o cara clicou aqui e " + e.target.value, e)}
         onFileInputChange={(e) => console.log("Opa arquivo carregado ", e.target.files)}
+        fetchEmojiData="https://cdn.jsdelivr.net/npm/@emoji-mart/data"
+        emojiTheme="light"
       />
     );
   }

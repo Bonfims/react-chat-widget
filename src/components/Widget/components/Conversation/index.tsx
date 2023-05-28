@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
-import { Picker } from 'emoji-mart';
+import React, { useRef, useState, useEffect } from 'react';
+import Picker from '@emoji-mart/react';
 import cn from 'classnames';
 
 import Header from './components/Header';
@@ -10,6 +10,18 @@ import QuickButtons from './components/QuickButtons';
 import { AnyFunction } from '../../../../utils/types';
 
 import './style.scss';
+
+declare namespace Intl {
+  export interface Segmenter {
+    segment(value: string): any
+  }
+  const Segmenter: {
+    new(
+        locales?: any,
+        options?: any,
+    ): Segmenter;
+  };
+}
 
 interface ISenderRef {
   onSelectEmoji: (event: any) => void;
@@ -35,6 +47,8 @@ type Props = {
   showTimeStamp: boolean;
   resizable?: boolean;
   emojis?: boolean;
+  emojiFetchData?: string;
+  emojiTheme?: string;
   onFileInputClick?: (event: any) => void;
   onFileInputChange?: (event: any) => void;
 };
@@ -59,6 +73,8 @@ function Conversation({
   showTimeStamp,
   resizable,
   emojis,
+  emojiFetchData = 'https://cdn.jsdelivr.net/npm/@emoji-mart/data',
+  emojiTheme = 'light',
   onFileInputClick,
   onFileInputChange
 }: Props) {
@@ -105,9 +121,25 @@ function Conversation({
   }
 
   const handlerSendMsn = (event) => {
-    sendMessage(event)
+    // Quando for apenas um emoji na mensagem, vamos suar o # do markdown para deixa-lo grande rs
+    if(typeof event == 'string'){
+      let textLength = [...new Intl.Segmenter().segment(event)].length;
+      let isEmoji = /\p{Extended_Pictographic}/u.test(event);
+      if(textLength == 1 && isEmoji)
+        event = `# ${event}`;
+    }
+    sendMessage(event);
     if(pickerStatus) setPicket(false)
   }
+
+  const [emojiData, setEmojiData] = useState<any>(null);
+  useEffect(() => {
+    fetch(emojiFetchData)
+      .then(res => res.json())
+      .then(data => setEmojiData(data))
+    .catch(err => console.error("Fail on fetch emoji data", err));
+  }, []);
+
 
   return (
     <div id="rcw-conversation-container" onMouseDown={initResize} 
@@ -126,33 +158,19 @@ function Conversation({
         showTimeStamp={showTimeStamp}
       />
       <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
-      {emojis && pickerStatus && (<Picker 
-        style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
-        onSelect={onSelectEmoji}
-        enableFrequentEmojiSort={false}
-        theme="light"
-        exclude={["recent", "search", "custom"]}
-        i18n={{
-          search: 'Procurar',
-          clear: 'Limpar',
-          notfound: 'Nenhum emoji encontrado',
-          skintext: 'Escolha a cor',
-          categories: {
-            search: 'Resultados da busca',
-            recent: 'Usados',
-            smileys: 'Smileys',
-            people: 'Pessoas',
-            nature: 'Animais & Natureza',
-            foods: 'Comidas & Bebidas',
-            activity: 'Atividades',
-            places: 'Viagens & Lugares',
-            objects: 'Objetos',
-            symbols: 'Símbolos',
-            flags: 'Bandeiras'
-          },
-          categorieslabel: 'Categorias',
-        }}
-      />)}
+      {emojis && pickerStatus && emojiData && (<div
+        style={{ position: 'absolute', bottom: pickerOffset, left: 0, width: '100%' }}
+      ><Picker 
+        data={emojiData}
+        onEmojiSelect={onSelectEmoji}
+        set='native'
+        locale='pt'
+        theme={emojiTheme}
+        previewPosition='none'
+        searchPosition='none'
+        maxFrequentRows={0}
+        dynamicWidth={true}
+      /></div>)}
       <Sender
         ref={senderRef}
         sendMessage={handlerSendMsn}

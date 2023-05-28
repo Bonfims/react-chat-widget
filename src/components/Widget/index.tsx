@@ -34,6 +34,8 @@ type Props = {
   showBadge?: boolean;
   resizable?: boolean;
   emojis?: boolean;
+  emojiFetchData?: string;
+  emojiTheme?: string;
   onFileInputClick?: (event: any) => void;
   onFileInputChange?: (event: any) => void;
 }
@@ -66,6 +68,8 @@ function Widget({
   showBadge,
   resizable,
   emojis,
+  emojiFetchData,
+  emojiTheme,
   onFileInputClick,
   onFileInputChange
 }: Props) {
@@ -119,6 +123,8 @@ function Widget({
       showBadge={showBadge}
       resizable={resizable}
       emojis={emojis}
+      emojiFetchData={emojiFetchData}
+      emojiTheme={emojiTheme}
       onFileInputClick={onFileInputClick}
       onFileInputChange={onFileInputChange}
     />
