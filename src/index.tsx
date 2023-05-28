@@ -129,7 +129,7 @@ const defaultProps = {
   imagePreview: false,
   zoomStep: 80,
   emojis: true,
-  fetchEmojiData: 'https://cdn.jsdelivr.net/npm/@emoji-mart/data',
+  emojiFetchData: 'https://cdn.jsdelivr.net/npm/@emoji-mart/data',
   emojiTheme: 'light',
   showBadge: true,
 };

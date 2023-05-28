@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Picker from '@emoji-mart/react';
 import cn from 'classnames';
 
@@ -73,8 +73,8 @@ function Conversation({
   showTimeStamp,
   resizable,
   emojis,
-  emojiFetchData = 'https://cdn.jsdelivr.net/npm/@emoji-mart/data',
-  emojiTheme = 'light',
+  emojiFetchData,
+  emojiTheme,
   onFileInputClick,
   onFileInputChange
 }: Props) {
@@ -123,21 +123,24 @@ function Conversation({
   const handlerSendMsn = (event) => {
     // Quando for apenas um emoji na mensagem, vamos suar o # do markdown para deixa-lo grande rs
     if(typeof event == 'string'){
-      let textLength = [...new Intl.Segmenter().segment(event)].length;
+      let textLength = [...(new Intl.Segmenter()).segment(event)].length;
       let isEmoji = /\p{Extended_Pictographic}/u.test(event);
-      if(textLength == 1 && isEmoji)
+      if(textLength == 1 && isEmoji){
         event = `# ${event}`;
+      }
     }
     sendMessage(event);
     if(pickerStatus) setPicket(false)
   }
 
-  const [emojiData, setEmojiData] = useState<any>(null);
+  const [emojiData, setEmojiData] = useState(null);
   useEffect(() => {
-    fetch(emojiFetchData)
-      .then(res => res.json())
-      .then(data => setEmojiData(data))
-    .catch(err => console.error("Fail on fetch emoji data", err));
+    if(emojiFetchData){
+      fetch(emojiFetchData)
+        .then(res => res.json())
+        .then(data => setEmojiData(data))
+      .catch(err => console.error("Fail on fetch emoji data", err));
+    }
   }, []);
 
 
