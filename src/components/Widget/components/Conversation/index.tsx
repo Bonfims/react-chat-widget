@@ -133,10 +133,10 @@ function Conversation({
     if(pickerStatus) setPicket(false)
   }
 
-  const [emojiData, setEmojiData] = useState(null);
+  const [emojiData, setEmojiData] = useState(emojiFetchData);
   useEffect(() => {
-    if(emojiFetchData && !emojiData){
-      fetch(emojiFetchData)
+    if(typeof emojiData == 'string'){
+      fetch(emojiData)
         .then(res => res.json())
         .then(data => setEmojiData(data))
       .catch(err => console.error("Fail on fetch emoji data", err));
@@ -163,7 +163,7 @@ function Conversation({
       {emojis && pickerStatus && emojiData && (<div
         style={{ position: 'absolute', bottom: pickerOffset, left: 0, width: '100%' }}
       ><Picker 
-        data={emojiData}
+        data={typeof emojiData == "string" ? {} : emojiData}
         onEmojiSelect={onSelectEmoji}
         set='native'
         locale='pt'
