@@ -135,14 +135,13 @@ function Conversation({
 
   const [emojiData, setEmojiData] = useState(null);
   useEffect(() => {
-    if(emojiFetchData){
+    if(emojiFetchData && !emojiData){
       fetch(emojiFetchData)
         .then(res => res.json())
         .then(data => setEmojiData(data))
       .catch(err => console.error("Fail on fetch emoji data", err));
     }
-  }, []);
-
+  }, [emojiData, emojiFetchData]);
 
   return (
     <div id="rcw-conversation-container" onMouseDown={initResize} 
