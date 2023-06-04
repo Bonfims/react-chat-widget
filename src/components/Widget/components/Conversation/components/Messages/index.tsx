@@ -55,7 +55,7 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp }: Props) 
     <div id="messages" className="rcw-messages-container" ref={messageRef}>
       {messages?.map((message, index) =>
         <div className={`rcw-message ${isClient(message.sender) ? 'rcw-message-client' : ''}`} 
-          key={`${index}-${format(message.timestamp, 'dd/MM/yy hh:mm')}`}>
+          key={`${index}-${format(message.timestamp, 'dd/MM/yy HH:mm')}`}>
           {((profileAvatar && !isClient(message.sender)) || (profileClientAvatar && isClient(message.sender))) &&
             message.showAvatar && 
             <img 
