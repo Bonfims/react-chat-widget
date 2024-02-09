@@ -14,15 +14,15 @@ export default class App extends Component {
 
   handleNewUserMessage = (newMessage: any) => {
     toggleMsgLoader();
-    toggleInputDisabled ();
     setTimeout(() => {
+      toggleInputDisabled ();
       toggleMsgLoader();
       if (newMessage === 'fruits') {
         setQuickButtons([ { label: 'Apple', value: 'apple' }, { label: 'Orange', value: 'orange' }, { label: 'Pear', value: 'pear' }, { label: 'Banana', value: 'banana' } ]);
       } else {
         addResponseMessage(newMessage);
       }
-    }, 2000);
+    }, 5000);
   }
 
   handleQuickButtonClicked = (e: any) => {

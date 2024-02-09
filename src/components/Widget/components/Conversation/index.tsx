@@ -25,6 +25,7 @@ declare namespace Intl {
 
 interface ISenderRef {
   onSelectEmoji: (event: any) => void;
+  toEmptyInput: () => void;
 }
 
 type Props = {
@@ -115,6 +116,15 @@ function Conversation({
   const onSelectEmoji = (emoji) => {
     senderRef.current?.onSelectEmoji(emoji)
   }
+
+  useEffect(() => {
+    if(pickerStatus){
+      if(disabledInput || vanishInput){
+        setPicket(false);
+        senderRef.current?.toEmptyInput();
+      }
+    }
+  }, [disabledInput, vanishInput]);
 
   const togglePicker = () => {
     setPicket(prevPickerStatus => !prevPickerStatus)
